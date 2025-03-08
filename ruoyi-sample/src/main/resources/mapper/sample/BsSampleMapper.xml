@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.sample.mapper.BsSampleMapper">
+    
+    <resultMap type="BsSample" id="BsSampleResult">
+        <result property="sampleId"    column="sample_id"    />
+        <result property="sampleUuid"    column="sample_uuid"    />
+        <result property="sampleMrid"    column="sample_mrid"    />
+        <result property="sampleType"    column="sample_type"    />
+        <result property="scanDeviceType"    column="scan_device_type"    />
+        <result property="patientIdCard"    column="patient_id_card"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="sampleSampleDate"    column="sample_sample_date"    />
+        <result property="sampleSendDate"    column="sample_send_date"    />
+        <result property="samplePathologyType"    column="sample_pathology_type"    />
+        <result property="reportType"    column="report_type"    />
+        <result property="sampleStatus"    column="sample_status"    />
+        <result property="uploadId"    column="upload_id"    />
+        <result property="diagnoseId"    column="diagnose_id"    />
+        <result property="reviewId"    column="review_id"    />
+        <result property="sampleImgPath"    column="sample_img_path"    />
+        <result property="wsiClassificationRecommend"    column="wsi_classification_recommend"    />
+        <result property="wsiClassificationPath"    column="wsi_classification_path"    />
+        <result property="diagnosePath"    column="diagnose_path"    />
+        <result property="reportPath"    column="report_path"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectBsSampleVo">
+        select sample_id, sample_uuid, sample_mrid, sample_type, scan_device_type, patient_id_card, dept_id, sample_sample_date, sample_send_date, sample_pathology_type, report_type, sample_status, upload_id, diagnose_id, review_id, sample_img_path, wsi_classification_recommend, wsi_classification_path, diagnose_path, report_path, remark, create_by, create_time, update_by, update_time, del_flag from bs_sample
+    </sql>
+
+    <select id="selectBsSampleList" parameterType="BsSample" resultMap="BsSampleResult">
+        <include refid="selectBsSampleVo"/>
+        <where>  
+            <if test="sampleUuid != null  and sampleUuid != ''"> and sample_uuid = #{sampleUuid}</if>
+            <if test="sampleMrid != null  and sampleMrid != ''"> and sample_mrid = #{sampleMrid}</if>
+            <if test="sampleType != null  and sampleType != ''"> and sample_type = #{sampleType}</if>
+            <if test="scanDeviceType != null  and scanDeviceType != ''"> and scan_device_type = #{scanDeviceType}</if>
+            <if test="patientIdCard != null  and patientIdCard != ''"> and patient_id_card = #{patientIdCard}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="sampleSampleDate != null "> and sample_sample_date = #{sampleSampleDate}</if>
+            <if test="sampleSendDate != null "> and sample_send_date = #{sampleSendDate}</if>
+            <if test="samplePathologyType != null  and samplePathologyType != ''"> and sample_pathology_type = #{samplePathologyType}</if>
+            <if test="reportType != null  and reportType != ''"> and report_type = #{reportType}</if>
+            <if test="sampleStatus != null  and sampleStatus != ''"> and sample_status = #{sampleStatus}</if>
+            <if test="uploadId != null "> and upload_id = #{uploadId}</if>
+            <if test="diagnoseId != null "> and diagnose_id = #{diagnoseId}</if>
+            <if test="reviewId != null "> and review_id = #{reviewId}</if>
+            <if test="sampleImgPath != null  and sampleImgPath != ''"> and sample_img_path = #{sampleImgPath}</if>
+            <if test="wsiClassificationRecommend != null  and wsiClassificationRecommend != ''"> and wsi_classification_recommend = #{wsiClassificationRecommend}</if>
+            <if test="wsiClassificationPath != null  and wsiClassificationPath != ''"> and wsi_classification_path = #{wsiClassificationPath}</if>
+            <if test="diagnosePath != null  and diagnosePath != ''"> and diagnose_path = #{diagnosePath}</if>
+            <if test="reportPath != null  and reportPath != ''"> and report_path = #{reportPath}</if>
+             and del_flag = 0
+        </where>
+    </select>
+    
+    <select id="selectBsSampleBySampleId" parameterType="Long" resultMap="BsSampleResult">
+        <include refid="selectBsSampleVo"/>
+        where sample_id = #{sampleId}
+    </select>
+
+    <insert id="insertBsSample" parameterType="BsSample" useGeneratedKeys="true" keyProperty="sampleId">
+        insert into bs_sample
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sampleUuid != null and sampleUuid != ''">sample_uuid,</if>
+            <if test="sampleMrid != null and sampleMrid != ''">sample_mrid,</if>
+            <if test="sampleType != null and sampleType != ''">sample_type,</if>
+            <if test="scanDeviceType != null and scanDeviceType != ''">scan_device_type,</if>
+            <if test="patientIdCard != null and patientIdCard != ''">patient_id_card,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="sampleSampleDate != null">sample_sample_date,</if>
+            <if test="sampleSendDate != null">sample_send_date,</if>
+            <if test="samplePathologyType != null and samplePathologyType != ''">sample_pathology_type,</if>
+            <if test="reportType != null and reportType != ''">report_type,</if>
+            <if test="sampleStatus != null and sampleStatus != ''">sample_status,</if>
+            <if test="uploadId != null">upload_id,</if>
+            <if test="diagnoseId != null">diagnose_id,</if>
+            <if test="reviewId != null">review_id,</if>
+            <if test="sampleImgPath != null">sample_img_path,</if>
+            <if test="wsiClassificationRecommend != null">wsi_classification_recommend,</if>
+            <if test="wsiClassificationPath != null">wsi_classification_path,</if>
+            <if test="diagnosePath != null">diagnose_path,</if>
+            <if test="reportPath != null">report_path,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sampleUuid != null and sampleUuid != ''">#{sampleUuid},</if>
+            <if test="sampleMrid != null and sampleMrid != ''">#{sampleMrid},</if>
+            <if test="sampleType != null and sampleType != ''">#{sampleType},</if>
+            <if test="scanDeviceType != null and scanDeviceType != ''">#{scanDeviceType},</if>
+            <if test="patientIdCard != null and patientIdCard != ''">#{patientIdCard},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="sampleSampleDate != null">#{sampleSampleDate},</if>
+            <if test="sampleSendDate != null">#{sampleSendDate},</if>
+            <if test="samplePathologyType != null and samplePathologyType != ''">#{samplePathologyType},</if>
+            <if test="reportType != null and reportType != ''">#{reportType},</if>
+            <if test="sampleStatus != null and sampleStatus != ''">#{sampleStatus},</if>
+            <if test="uploadId != null">#{uploadId},</if>
+            <if test="diagnoseId != null">#{diagnoseId},</if>
+            <if test="reviewId != null">#{reviewId},</if>
+            <if test="sampleImgPath != null">#{sampleImgPath},</if>
+            <if test="wsiClassificationRecommend != null">#{wsiClassificationRecommend},</if>
+            <if test="wsiClassificationPath != null">#{wsiClassificationPath},</if>
+            <if test="diagnosePath != null">#{diagnosePath},</if>
+            <if test="reportPath != null">#{reportPath},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBsSample" parameterType="BsSample">
+        update bs_sample
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sampleUuid != null and sampleUuid != ''">sample_uuid = #{sampleUuid},</if>
+            <if test="sampleMrid != null and sampleMrid != ''">sample_mrid = #{sampleMrid},</if>
+            <if test="sampleType != null and sampleType != ''">sample_type = #{sampleType},</if>
+            <if test="scanDeviceType != null and scanDeviceType != ''">scan_device_type = #{scanDeviceType},</if>
+            <if test="patientIdCard != null and patientIdCard != ''">patient_id_card = #{patientIdCard},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="sampleSampleDate != null">sample_sample_date = #{sampleSampleDate},</if>
+            <if test="sampleSendDate != null">sample_send_date = #{sampleSendDate},</if>
+            <if test="samplePathologyType != null and samplePathologyType != ''">sample_pathology_type = #{samplePathologyType},</if>
+            <if test="reportType != null and reportType != ''">report_type = #{reportType},</if>
+            <if test="sampleStatus != null and sampleStatus != ''">sample_status = #{sampleStatus},</if>
+            <if test="uploadId != null">upload_id = #{uploadId},</if>
+            <if test="diagnoseId != null">diagnose_id = #{diagnoseId},</if>
+            <if test="reviewId != null">review_id = #{reviewId},</if>
+            <if test="sampleImgPath != null">sample_img_path = #{sampleImgPath},</if>
+            <if test="wsiClassificationRecommend != null">wsi_classification_recommend = #{wsiClassificationRecommend},</if>
+            <if test="wsiClassificationPath != null">wsi_classification_path = #{wsiClassificationPath},</if>
+            <if test="diagnosePath != null">diagnose_path = #{diagnosePath},</if>
+            <if test="reportPath != null">report_path = #{reportPath},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+        </trim>
+        where sample_id = #{sampleId}
+    </update>
+
+    <delete id="deleteBsSampleBySampleId" parameterType="Long">
+        delete from bs_sample where sample_id = #{sampleId}
+    </delete>
+
+    <delete id="deleteBsSampleBySampleIds" parameterType="String">
+        <!--delete from bs_sample where sample_id in -->
+        update bs_sample set del_flag = 2 where sample_id in
+        <foreach item="sampleId" collection="array" open="(" separator="," close=")">
+            #{sampleId}
+        </foreach>
+    </delete>
+    <select id="countBsSampleByDept" resultType="java.util.Map">
+        SELECT
+            c.dept_name,
+            COUNT(CASE WHEN a.sample_status = '50' THEN 1 END) AS sample_count_50,
+            COUNT(CASE WHEN a.sample_status != '50' THEN 1 END) AS sample_count_not_50
+        FROM
+            bs_sample a
+                LEFT JOIN
+            sys_dept b ON a.dept_id = b.dept_id
+                LEFT JOIN
+            sys_dept c ON b.parent_id = c.dept_id
+        WHERE
+            a.del_flag = 0
+        GROUP BY
+            c.dept_name;
+    </select>
+</mapper>
